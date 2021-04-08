@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  namespace: production
+spec:
+  ports:
+    - port: 4000
+      protocol: TCP
+  selector:
+    app: server
+#  type: LoadBalancer
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: backend-ingress
+  namespace: production
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: be.jokoss.site
+    http:
+      paths:
+      #- path: /belajar
+      - backend:
+          serviceName: backend-service
+          servicePort: 4000
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  namespace: production
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: server
+    spec:
+      containers:
+        - name: server
+          image: johnojss/mern-backend
+          ports:
+            - containerPort: 4000
+              name: nodejs-port
+  selector:
+    matchLabels:
+      app: server
