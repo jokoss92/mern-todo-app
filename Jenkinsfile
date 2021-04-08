@@ -10,9 +10,6 @@ pipeline {
                 sh "whoami"
             }
         }
-        // stage('Git Pull from Github') {
-        //     git url: 'https://github.com/jokoss92/mern-todo-app.git'
-        // }
         stage('Git clone from Github') {
          steps {
              sh "git clone https://github.com/jokoss92/mern-todo-app.git"
