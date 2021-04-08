@@ -112,5 +112,3 @@ nano cluster-autoscaler-autodiscover.yaml
         - name: ssl-certs
           hostPath:
             path: "/etc/ssl/certs/ca-bundle.crt"
-
-docker build
