@@ -13,29 +13,27 @@ spec:
 #  type: LoadBalancer
 
 ---
-
 apiVersion: cert-manager.io/v1alpha2
 kind: Issuer
 metadata:
   name: letsencrypt-frontend-prod
   namespace: cert-manager
 spec:
- acme:
-   # The ACME server URL
-   server: https://acme-v02.api.letsencrypt.org/directory
-   # Email address used for ACME registration
-   email: johno.smakaduta@gmail.com
-   # Name of a secret used to store the ACME account private key
-   privateKeySecretRef:
-     name: letsencrypt-frontend-prod
-   # Enable the HTTP-01 challenge provider
-   solvers:
-   - http01:
-       ingress:
-         class:  nginx
+  acme:
+    # The ACME server URL
+    server: https://acme-v02.api.letsencrypt.org/directory
+    # Email address used for ACME registration
+    email: johno.smakaduta@gmail.com
+    # Name of a secret used to store the ACME account private key
+    privateKeySecretRef:
+      name: letsencrypt-frontend-prod
+    # Enable the HTTP-01 challenge provider
+    solvers:
+      - http01:
+          ingress:
+            class: nginx
 
 ---
-
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -47,20 +45,19 @@ metadata:
     cert-manager.io/issuer: "letsencrypt-frontend-prod"
 spec:
   rules:
-  - host: fe.jokoss.site
-    http:
-      paths:
-      #- path: /belajar
-      - backend:
-          serviceName: frontend-service
-          servicePort: 80
+    - host: fe.jokoss.site
+      http:
+        paths:
+          #- path: /belajar
+          - backend:
+              serviceName: frontend-service
+              servicePort: 80
 
   tls:
     - hosts:
         - fe.jokoss.site
       secretName: fe-prod-tls
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
