@@ -78,3 +78,25 @@ spec:
         http01:
           ingress:
             class: nginx
+---
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: backend-prod-hpa
+  namespace: production
+spec:
+  maxReplicas: 10
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: backend-deployment
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: 90
+    - type: Resource
+      resource:
+        name: memory
+        targetAverageUtilization: 90
