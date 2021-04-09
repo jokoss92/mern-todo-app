@@ -5,14 +5,14 @@ env.DOCKER_IMAGE_BACKEND = 'mern-backend'
 pipeline {
     agent any 
     stages {
-        stage('Cleaning FIle....') { 
-            steps {
-                cleanWs()
-            }
-        }
         stage('Hello World') { 
             steps {
                 sh "whoami"
+            }
+        }
+        stage('Cleaning FIle....') { 
+            steps {
+                cleanWs()
             }
         }
         stage('Git clone from Github') {
