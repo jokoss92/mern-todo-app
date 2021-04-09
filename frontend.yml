@@ -57,7 +57,7 @@ spec:
   tls:
     - hosts:
         - fe.jokoss.site
-      secretName: frontend-tls
+      secretName: frontend-ssl
 ---
 apiVersion: apps/v1
 kind: Deployment
