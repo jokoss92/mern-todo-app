@@ -1,3 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  namespace: production
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: client
+    spec:
+      containers:
+        - name: client
+          image: johnojss/mern-frontend
+          ports:
+            - containerPort: 3000
+              name: http-port
+  selector:
+    matchLabels:
+      app: client
+
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -58,29 +81,6 @@ spec:
     - hosts:
         - fe.jokoss.site
       secretName: frontend-ssl
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: frontend-deployment
-  namespace: production
-spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: client
-    spec:
-      containers:
-        - name: client
-          image: johnojss/mern-frontend
-          ports:
-            - containerPort: 3000
-              name: http-port
-  selector:
-    matchLabels:
-      app: client
-
 ---
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
