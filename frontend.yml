@@ -31,6 +31,10 @@ spec:
           serviceName: frontend-service
           servicePort: 80
 
+  tls:
+    - hosts:
+        - fe.jokoss.site
+      secretName: fe-prod-tls
 ---
 
 apiVersion: apps/v1
