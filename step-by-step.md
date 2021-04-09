@@ -112,3 +112,7 @@ nano cluster-autoscaler-autodiscover.yaml
         - name: ssl-certs
           hostPath:
             path: "/etc/ssl/certs/ca-bundle.crt"
+
+### Install EFK ###
+
+### Install Prometheus Grafana ###
