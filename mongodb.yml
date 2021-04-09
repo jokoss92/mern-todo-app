@@ -17,7 +17,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongodb
-  namespace: staging
+  namespace: production
   labels:
     app: mongodb
 spec:
@@ -42,7 +42,6 @@ spec:
   selector:
     matchLabels:
       app: mongodb
-      
 ---
 
 apiVersion: v1
