@@ -39,7 +39,7 @@ spec:
 apiVersion: cert-manager.io/v1alpha2
 kind: Issuer
 metadata:
-  name: frontend-ssl
+  name: frontend-prod
   namespace: production
 spec:
   acme:
@@ -49,7 +49,7 @@ spec:
     email: johno.smakaduta@gmail.com
     # Name of a secret used to store the ACME account private key
     privateKeySecretRef:
-      name: frontend-ssl
+      name: frontend-prod
     # Enable the HTTP-01 challenge provider
     solvers:
       - selector: {}
@@ -61,12 +61,12 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: frontend-ssl
+  name: frontend-ingress
   namespace: production
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     kubernetes.io/ingress.class: "nginx"
-    cert-manager.io/issuer: "frontend-ssl"
+    cert-manager.io/issuer: "frontend-prod"
 spec:
   rules:
     - host: fe.jokoss.site

@@ -32,8 +32,8 @@ pipeline {
                 sh'''cd mern-todo-app && sed -i "15d" frontend.yml'''
                 sh'''cd mern-todo-app && sed -i "14 a \'\\'          image: $DOCKER_REGISTRY/$DOCKER_IMAGE_FRONTEND:${BUILD_NUMBER}" frontend.yml && sed -i "s/''//" frontend.yml'''
                 sh "cd mern-todo-app && kubectl apply -f frontend.yml"
-                sh'''cd mern-todo-app && sed -i "49d" backend.yml'''
-                sh'''cd mern-todo-app && sed -i "48 a \'\\'          image: $DOCKER_REGISTRY/$DOCKER_IMAGE_BACKEND:${BUILD_NUMBER}" backend.yml && sed -i "s/''//" backend.yml'''
+                sh'''cd mern-todo-app && sed -i "15d" backend.yml'''
+                sh'''cd mern-todo-app && sed -i "14 a \'\\'          image: $DOCKER_REGISTRY/$DOCKER_IMAGE_BACKEND:${BUILD_NUMBER}" backend.yml && sed -i "s/''//" backend.yml'''
                 sh "cd mern-todo-app && kubectl apply -f backend.yml"                
             }                
         }
