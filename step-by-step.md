@@ -114,5 +114,22 @@ nano cluster-autoscaler-autodiscover.yaml
             path: "/etc/ssl/certs/ca-bundle.crt"
 
 ### Install EFK ###
+cd efk/
+kubectl apply -f efk-ns.yaml
+cd elastic/
+kubectl apply -f p-elasticsearch-svc.yaml
+kubectl apply -f p-elasticsearch-statefulset.yaml
+kubectl rollout status sts/es-cluster --namespace=kube-logging
+kubectl port-forward es-cluster-0 9200:9200 --namespace=kube-logging
+cd ../kibana/
+kubectl apply -f p-kibana-dpy.yaml
+kubectl rollout status deployment/kibana --namespace=kube-logging
+kubectl get pods --namespace=kube-logging
+kubectl apply -f p-p-ekf-ingress.yaml
+kubectl apply -f p-fluentd-dpy.yaml
+kubectl get ds --namespace=kube-logging
+kubectl get svc --namespace=kube-logging
+kubectl get ing --namespace=kube-logging
+kubectl apply -f p-counter-pod.yaml
 
 ### Install Prometheus Grafana ###
