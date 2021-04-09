@@ -10,11 +10,6 @@ pipeline {
                 sh "whoami"
             }
         }
-        stage('Cleaning FIle....') { 
-            steps {
-                cleanWs()
-            }
-        }
         stage('Git clone from Github') {
          steps {
              sh "git clone https://github.com/jokoss92/mern-todo-app.git"
