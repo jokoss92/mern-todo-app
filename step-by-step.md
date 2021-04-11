@@ -133,4 +133,4 @@ kubectl get ing --namespace=kube-logging
 kubectl apply -f p-counter-pod.yaml
 
 ### Install Prometheus Grafana ###
-Test1234
+
