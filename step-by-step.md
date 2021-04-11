@@ -133,4 +133,43 @@ kubectl get ing --namespace=kube-logging
 kubectl apply -f p-counter-pod.yaml
 
 ### Install Prometheus Grafana ###
+kubectl apply -f p-monitoring-pvc.yml
+kubectl apply -f p-monitoring-ns.yml
+kubectl apply -f p-prometheus-cr.yml
+kubectl apply -f p-prometheus-configmap.yml
+kubectl apply -f p-prometheus-deployment.yaml
+kubectl apply -f p-prometheus-service.yaml
+kubectl apply -f p-metrics-sa.yml
+kubectl apply -f p-metrics-rbac.yml
+kubectl apply -f p-metrics-cr.yml
+kubectl apply -f p-metrics-dpy.yml
+kubectl apply -f p-metrics-svc.yml
+kubectl apply -f p-grafana-datasource-config.yaml
+kubectl apply -f p-grafana-dpy.yaml
+kubectl apply -f p-grafana-svc.yml
+kubectl apply -f p-grafana-ingress.yml
+kubectl apply -f p-grafana-ingress.yml
+kubectl get ing -n monitoring
+
+### Install Jenkins Master ###
+sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+sudo apt-get update
+sudo apt-get install openjdk-8-jdk
+/var/lib/jenkins/secrets/initialAdminPassword
+sudo apt install nginx software-properties-common
+sudo openssl dhparam -out /etc/nginx/ssl/dhparam.pem 2048
+sudo service nginx stop
+sudo rm -rf /etc/nginx/sites-enabled/default
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt install certbot
+sudo certbot certonly --standalone -d jenkins.jokoss.site
+systemctl restart nginx
+sudo openssl dhparam -out /etc/nginx/ssl/dhparam.pem 2048
+sudo vim /etc/nginx/sites-available/jenkins.jokoss.site
+sudo ln -s /etc/nginx/sites-available/jenkins.jokoss.site /etc/nginx/sites-enabled/jenkins.jokoss.site
+sudo nginx -t
+sudo systemctl restart nginx
+snap install docker
+docker login
+
 
