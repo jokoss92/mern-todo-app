@@ -9,6 +9,10 @@ chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 kubectl version --client
 
+### Jalankan AWS Configure ###
+apt install aws-cli
+aws configure
+
 ### Export variabel yang nanti akan dibutuhkan  ###
 export bucket_name=k8s-jokoss-site
 export KOPS_CLUSTER_NAME=k8s.jokoss.site
@@ -113,6 +117,13 @@ nano cluster-autoscaler-autodiscover.yaml
           hostPath:
             path: "/etc/ssl/certs/ca-bundle.crt"
 
+### Deploy MERN todo app ###
+git clone https://github.com/jokoss92/mern-todo-app.git
+cd  mern-todo-app
+kubectl apply -f metric-server.yml
+kubectl apply -f mongodb.yml
+kubectl get service -n production #Kemudian tambahkan ke Route53
+
 ### Install EFK ###
 cd efk/
 kubectl apply -f efk-ns.yaml
@@ -174,5 +185,5 @@ docker login
 curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
-
+#copy ~/.kube/config from bastionhost to jenkins master
 
